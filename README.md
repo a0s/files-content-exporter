@@ -18,7 +18,7 @@ config.yml
 
 This file describes metrics (entities) which will be export through `/metrics` endpoint. Example of config.yml (`examples/config.yml`) is valid for Cubieboard2. But you are free to use any files as a source of metrics.
 
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `#f03c15`
+> Warning! For entites with same names you *must* use equal help text and labels names. Otherwise you will get _"panic: a previously registered descriptor with the same fully-qualified name as Desc{...} has different label names or a different help string"_
 
 ```yaml
 path_as_label_enabled: true                                 # include path to file as `path` label
