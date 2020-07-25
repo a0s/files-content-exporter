@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 	"sync"
 )
 
@@ -52,26 +53,28 @@ func wrapperFunc(ceg *gaugedEntities) func() {
 	}
 }
 
-func updateMetric(ce *entity, ga *prometheus.Gauge, wg *sync.WaitGroup) {
+func updateMetric(entity *entity, gauge *prometheus.Gauge, wg *sync.WaitGroup) {
 	defer wg.Done()
 
-	_, err := os.Stat(ce.File)
+	_, err := os.Stat(entity.File)
 	if err != nil {
-		log.Printf("file is not existing %v", ce.File)
+		log.Printf("file is not existing %v", entity.File)
 		return
 	}
 
-	content, err := ioutil.ReadFile(ce.File)
+	content, err := ioutil.ReadFile(entity.File)
 	if err != nil {
-		log.Printf("can't read file %v", ce.File)
+		log.Printf("can't read file %v", entity.File)
 		return
 	}
 
-	value, err := strconv.ParseFloat(string(content), 64)
+	prepared := strings.TrimSpace(string(content))
+
+	value, err := strconv.ParseFloat(prepared, 64)
 	if err != nil {
-		log.Printf("can't convert '%v' from %v to Float64", string(content), ce.File)
+		log.Printf("can't convert '%v' from %v to Float64", string(content), entity.File)
 		return
 	}
 
-	(*ga).Set(value)
+	(*gauge).Set(value)
 }
