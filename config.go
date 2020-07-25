@@ -17,7 +17,7 @@ type entity struct {
 	File   string            `yaml:"file,flow"`
 	Name   string            `yaml:"name,flow"`
 	Labels map[string]string `yaml:"labels,flow"`
-	Help   string            `yaml:"help"`
+	Help   string            `yaml:"help,flow"`
 }
 
 func readYamlConfig(filePath string) *yamlConfig {

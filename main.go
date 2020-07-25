@@ -14,7 +14,7 @@ import (
 )
 
 type envs struct {
-	ConfigFilePath string `env:"FILES_CONTENT_EXPORTER_CONFIG_FILE_PATH,required"`
+	ConfigFilePath string `env:"FILES_CONTENT_EXPORTER_CONFIG_FILE_PATH" envDefault:"/config.yml"`
 	Host           string `env:"FILES_CONTENT_EXPORTER_HOST" envDefault:"127.0.0.1"`
 	Port           uint16 `env:"FILES_CONTENT_EXPORTER_PORT" envDefault:"9457"`
 }

@@ -17,6 +17,7 @@ func newGaugedEntities(cf *yamlConfig) *gaugedEntities {
 		}
 		newGauge := prometheus.NewGauge(prometheus.GaugeOpts{
 			Name:        configEntity.Name,
+			Help:        configEntity.Help,
 			ConstLabels: tempLabels,
 		})
 		prometheus.MustRegister(newGauge)
