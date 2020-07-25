@@ -2,10 +2,11 @@ package main
 
 import "github.com/prometheus/client_golang/prometheus"
 
-type EntityWithGauge map[*ConfigFileEntity]*prometheus.Gauge
+type gaugedEntities map[*entity]*prometheus.Gauge
 
-func initializeGauges(cf *ConfigFile) *EntityWithGauge {
-	gauges := make(EntityWithGauge)
+func newGaugedEntities(cf *yamlConfig) *gaugedEntities {
+	gauges := make(gaugedEntities)
+
 	for _, configEntity := range cf.Entities {
 		tempLabels := make(map[string]string)
 		for k, v := range configEntity.Labels {
@@ -21,5 +22,6 @@ func initializeGauges(cf *ConfigFile) *EntityWithGauge {
 		prometheus.MustRegister(newGauge)
 		gauges[&configEntity] = &newGauge
 	}
+
 	return &gauges
 }
