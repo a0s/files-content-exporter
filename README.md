@@ -6,17 +6,19 @@ Export file(s) content as Prometheus metric
 Settings
 --------
 
-* `FILES_CONTENT_EXPORTER_CONFIG_FILE_PATH` | default: _/config.yml_ - path to configuration yaml
+* `FILES_CONTENT_EXPORTER_CONFIG_FILE_PATH` | default: _/config.yml_ - path to config.yml
 
 * `FILES_CONTENT_EXPORTER_PORT` | default: _9457_ - port to bind
 
 * `FILES_CONTENT_EXPORTER_HOST` | default: _127.0.0.1_  - host to bind
 
 
-Usage
------
+config.yml
+----------
 
-Example of configuration to fetch heat metrics for Cubieboard2 (see `examples/config.yml`)
+This file describes metrics (entities) which will be export through `/metrics` endpoint. Example of config.yml (`examples/config.yml`) is valid for Cubieboard2. But you are free to use any files as a source of metrics.
+
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `#f03c15`
 
 ```yaml
 path_as_label_enabled: true                                 # include path to file as `path` label
@@ -45,9 +47,10 @@ entities:                                                   # list of entities (
     name: pmu_temp_celsius
 ```
 
-Run as docker container
+Run `files-content-exporter` in Docker container
+---------------------------------------------
 
-```sh
+```bash
 docker run \
   -v /sys:/sys \
   -v `pwd`/example/config.yml:/config.yml \
