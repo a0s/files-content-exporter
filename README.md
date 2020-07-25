@@ -53,7 +53,7 @@ Run `files-content-exporter` in Docker container
 ```bash
 docker run \
   -v /sys:/sys \
-  -v `pwd`/example/config.yml:/config.yml \
+  -v `pwd`/examples/config.yml:/config.yml \
   -p 9457:9457 \
   -e FILES_CONTENT_EXPORTER_HOST=0.0.0.0 \
   a00s/files-content-exporter
