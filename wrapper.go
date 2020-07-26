@@ -1,6 +1,8 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+)
 
 type wrapper struct {
 	beforeFunction  func()
@@ -13,6 +15,5 @@ func (ph wrapper) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 }
 
 func newWrapper(beforeFunc func(), handler http.Handler) *wrapper {
-	ph := wrapper{beforeFunc, handler}
-	return &ph
+	return &wrapper{beforeFunc, handler}
 }

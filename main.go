@@ -2,11 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/caarlos0/env/v6"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	log "github.com/sirupsen/logrus"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -14,18 +13,7 @@ import (
 	"sync"
 )
 
-type envs struct {
-	ConfigFilePath string `env:"FILES_CONTENT_EXPORTER_CONFIG_FILE_PATH" envDefault:"/config.yml"`
-	Host           string `env:"FILES_CONTENT_EXPORTER_HOST" envDefault:"127.0.0.1"`
-	Port           uint16 `env:"FILES_CONTENT_EXPORTER_PORT" envDefault:"9457"`
-}
-
 func main() {
-	envs := &envs{}
-	if err := env.Parse(envs); err != nil {
-		log.Fatal(err)
-	}
-
 	configFile := readYamlConfig(envs.ConfigFilePath)
 
 	gauges := newGaugedEntities(configFile)
@@ -33,7 +21,7 @@ func main() {
 	http.Handle("/metrics", newWrapper(wrapperFunc(gauges), promhttp.Handler()))
 
 	addr := fmt.Sprintf("%s:%d", envs.Host, envs.Port)
-	log.Printf("starting prometheus exporter at %s\n", addr)
+	log.Infof("starting prometheus exporter at %s\n", addr)
 
 	if err := http.ListenAndServe(addr, nil); err != nil {
 		log.Fatal(err)
@@ -58,13 +46,13 @@ func updateMetric(entity *entity, gauge *prometheus.Gauge, wg *sync.WaitGroup) {
 
 	_, err := os.Stat(entity.File)
 	if err != nil {
-		log.Printf("file is not existing %v", entity.File)
+		log.Warnf("file is not existing %v", entity.File)
 		return
 	}
 
 	content, err := ioutil.ReadFile(entity.File)
 	if err != nil {
-		log.Printf("can't read file %v", entity.File)
+		log.Warnf("can't read file %v", entity.File)
 		return
 	}
 
@@ -72,7 +60,7 @@ func updateMetric(entity *entity, gauge *prometheus.Gauge, wg *sync.WaitGroup) {
 
 	value, err := strconv.ParseFloat(prepared, 64)
 	if err != nil {
-		log.Printf("can't convert '%v' from %v to Float64", string(content), entity.File)
+		log.Warnf("can't convert '%v' from %v to Float64", string(content), entity.File)
 		return
 	}
 

@@ -12,6 +12,7 @@ Settings
 
 * `FILES_CONTENT_EXPORTER_HOST` | default: _127.0.0.1_  - host to bind
 
+* `FILES_CONTENT_EXPORTER_LOG_LEVEL` | default: _INFO_ - log level, one of `DEBUG`, `INFO`, `WARN`, `ERROR`, `FATAL`
 
 config.yml
 ----------
