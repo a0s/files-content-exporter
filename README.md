@@ -22,13 +22,13 @@ This file describes metrics (entities) which will be export through `/metrics` e
 > Warning! For entites with same names you *must* use equal help text and labels names. Otherwise you will get _"panic: a previously registered descriptor with the same fully-qualified name as Desc{...} has different label names or a different help string"_
 
 ```yaml
-path_as_label_enabled: true                                 # include path to file as `path` label
+path_as_label_enabled: true                                 # [optional] use path to file with metric as `path` label
 entities:                                                   # list of entities (one file - one metric)
-  - file: /sys/devices/virtual/thermal/thermal_zone0/temp   # path to file with metric, *required*
-    name: cpu_temp_celsius                                  # metric's name in export, *required*
-    labels:                                                 # list of labels, optional
+  - file: /sys/devices/virtual/thermal/thermal_zone0/temp   # [required] path to file with metric
+    name: cpu_temp_celsius                                  # [required] metric's name in export
+    labels:                                                 # [optional] list of labels, optional
       thermal_zone: 0
-    help: CPU thermal 0                                     # description of metric
+    help: CPU thermal 0                                     # [optional] description of metric
   - file: /sys/devices/virtual/thermal/thermal_zone1/temp
     name: cpu_temp_celsius
     labels:
