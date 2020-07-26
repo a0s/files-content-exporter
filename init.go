@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/caarlos0/env/v6"
 	log "github.com/sirupsen/logrus"
+	"os"
 )
 
 type envsSettings struct {
@@ -19,6 +20,8 @@ func init() {
 	if err := env.Parse(&envs); err != nil {
 		log.Fatalf("env parsing %v", err)
 	}
+
+	log.SetOutput(os.Stdout)
 
 	switch envs.LogLevel {
 	case "DEBUG":
