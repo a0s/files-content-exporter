@@ -48,7 +48,7 @@ entities:                                                   # list of entities (
     name: pmu_temp_celsius
 ```
 
-Run `files-content-exporter` as Docker container
+Run as Docker container
 ---------------------------------------------
 
 ```bash
