@@ -1,0 +1,40 @@
+name: Build and Push Image for Docker Hub
+on:
+  release:
+    types: [published]
+jobs:
+  buildx:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v2
+        with:
+          buildx-version: latest
+          skip-cache: false
+          qemu-version: latest
+
+      - name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+
+      - name: Run Buildx
+        run: |
+          docker buildx build \
+            --platform linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6 \
+            -t a00s/files-content-exporter:${GITHUB_REF}-alpine \
+            .
+
+      - name: Login to DockerHub
+        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      # Reusing the cache, push the images
+      - name: Run Buildx
+        run: |
+          docker buildx build \
+            --platform linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6 \
+            -t a00s/files-content-exporter:${GITHUB_REF}-alpine \
+            . \
+            --push
