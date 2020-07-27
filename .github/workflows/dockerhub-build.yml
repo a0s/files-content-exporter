@@ -33,15 +33,18 @@ jobs:
             --platform linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6 \
             -t a00s/files-content-exporter:${SOURCE_TAG}-alpine \
             .
+        env:
+          SOURCE_TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
 
       - name: Login to DockerHub
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-      # Reusing the cache, push the images
       - name: Run Buildx
         run: |
           docker buildx build \
             --platform linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6 \
-            -t a00s/files-content-exporter:${GITHUB_REF}-alpine \
+            -t a00s/files-content-exporter:${SOURCE_TAG}-alpine \
             . \
             --push
+        env:
+          SOURCE_TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
