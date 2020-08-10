@@ -54,6 +54,7 @@ jobs:
             -t a00s/files-content-exporter:${{ steps.branch_name.outputs.SOURCE_TAG }}-alpine \
             -o type=local,dest=build \
             .
+          ls -all build/**/*
           tar -C ./build/linux_amd64/app -czf ${{ steps.variables.outputs.REPOSITORY_NAME }}-amd64.tar.gz ${{ steps.variables.outputs.REPOSITORY_NAME }}
           tar -C ./build/linux_arm64/app -czf ${{ steps.variables.outputs.REPOSITORY_NAME }}-arm64.tar.gz ${{ steps.variables.outputs.REPOSITORY_NAME }}
           tar -C ./build/linux_arm_v6/app -czf ${{ steps.variables.outputs.REPOSITORY_NAME }}-armv6.tar.gz ${{ steps.variables.outputs.REPOSITORY_NAME }}
