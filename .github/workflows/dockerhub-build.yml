@@ -55,7 +55,7 @@ jobs:
           mkdir build
           docker buildx build \
             --platform linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6 \
-            -t a00s/${{ steps.variables.outputs.REPOSITORY_NAME }}:latest \
+            -t a00s/files-content-exporter:${SOURCE_TAG}-alpine \
             -o type=local,dest=build \
             .
           tar -C ./build/linux_amd64/app -czf ${{ steps.variables.outputs.REPOSITORY_NAME }}-amd64.tar.gz ${{ steps.variables.outputs.REPOSITORY_NAME }}
