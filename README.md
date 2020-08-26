@@ -5,7 +5,7 @@ files-content-exporter
 [![Docker image](https://github.com/a0s/files-content-exporter/workflows/Docker%20image/badge.svg)](https://hub.docker.com/repository/docker/a00s/files-content-exporter)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Exports file content as Prometheus metric
+Exports file's content as Prometheus metric
 
 Releases
 --------
