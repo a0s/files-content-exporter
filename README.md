@@ -1,7 +1,18 @@
 files-content-exporter
 ======================
+[![GitHub release](https://img.shields.io/github/release/a0s/files-content-exporter.svg)](https://github.com/a0s/files-content-exporter/releases/latest)
+[![Binary release](https://github.com/a0s/files-content-exporter/workflows/Binary%20release/badge.svg)](https://github.com/a0s/files-content-exporter/releases/latest)
+[![Docker image](https://github.com/a0s/files-content-exporter/workflows/Docker%20image/badge.svg)](https://hub.docker.com/repository/docker/a00s/files-content-exporter)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Export file(s) content as Prometheus metric
+Exports file content as Prometheus metric
+
+Releases
+--------
+
+* static linked binary: [linux/amd64](https://github.com/a0s/files-content-exporter/releases/latest/download/files-content-exporter-amd64.tar.gz), [linux/arm64](https://github.com/a0s/files-content-exporter/releases/latest/download/files-content-exporter-arm64.tar.gz), [linux/armv6](https://github.com/a0s/files-content-exporter/releases/latest/download/files-content-exporter-armv6.tar.gz), [linux/armv7](https://github.com/a0s/files-content-exporter/releases/latest/download/files-content-exporter-armv7.tar.gz)
+
+* docker image: [a00s/files-content-exporter](https://hub.docker.com/repository/docker/a00s/files-content-exporter)
 
 Settings
 --------
